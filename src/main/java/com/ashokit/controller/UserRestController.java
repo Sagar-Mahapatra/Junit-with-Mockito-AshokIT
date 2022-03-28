@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ashokit.exception.ResourceNotFoundException;
+import com.ashokit.model.UserResp;
 import com.ashokit.service.UserService;
 
 @RestController
@@ -16,8 +18,9 @@ public class UserRestController {
 	private UserService service;
 
 	@GetMapping("/email/{id}")
-	public String getUserEmail(@PathVariable Long id) {
-		return service.getUserEmail(id);
+	public UserResp getUserEmail(@PathVariable Long id) throws ResourceNotFoundException {
+		String userEmail = service.getUserEmail(id);
+		return new UserResp("200", userEmail);
 	}
 
 }

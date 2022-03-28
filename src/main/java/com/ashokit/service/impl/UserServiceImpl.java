@@ -2,6 +2,7 @@ package com.ashokit.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.ashokit.exception.ResourceNotFoundException;
 import com.ashokit.repo.UserRepository;
 import com.ashokit.service.UserService;
 
@@ -15,8 +16,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String getUserEmail(Long id) {
-		return repo.findEmailById(id).orElseThrow(() -> new RuntimeException("USER WITH ID " + id + " NOT FOUND"));
+	public String getUserEmail(Long id) throws ResourceNotFoundException {
+		return repo.getUserEmailById(id).orElseThrow(() -> new ResourceNotFoundException("404", "NOT FOUND"));
 	}
-
 }
